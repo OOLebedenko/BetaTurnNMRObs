@@ -29,14 +29,15 @@ class ExtractDihedrals(TrajectoryProcessor):
             self._residue_writers_pairs.append((residue, angle_writer))
 
     def __call__(self, frame: Frame):
-        """Available attributes:
-        - self.angle_names: List[str] - list of angle names
-        - self._residue_writers_pairs: List[(Residue, writer)] - pairs of (residue, writer object)
-
-        For each residue in self._residue_writers_pairs:
-        1. Get angle values (using TorsionAngleFactory.get())
-        2. Write them to the corresponding writer via writer.writerow(values)"""
-        ...
+        for residue, writer in self._residue_writers_pairs:
+            values = []
+            for angle_name in self.angle_names:
+                angle = TorsionAngleFactory.get(residue=residue, angle_name=angle_name)
+                if angle is None:
+                    values.append("NA")
+                else:
+                    values.append(str(angle.value().to_stgidard_range().degrees))
+            writer.writerow(values)
 
     def after_last_iteration(self, exc_type, exc_value, traceback):
         for _, writer in self._residue_writers_pairs:
