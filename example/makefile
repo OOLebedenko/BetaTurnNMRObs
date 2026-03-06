@@ -1,6 +1,6 @@
 include common.mk
 
-data/*.csv: ${SCRIPT_DIR}/extract_dihedral_angles.py
+data/dihedral_angles/*.csv: ${SCRIPT_DIR}/extract_dihedral_angles.py
 	python3 "$<" \
 	    --path-to-trajectory-dir="${PATH_TO_TRAJECTORY}"\
 	    --path-to-pdb-reference="${REFERENCE_PDB_PATH}" \
