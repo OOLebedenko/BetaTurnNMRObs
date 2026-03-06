@@ -1,13 +1,11 @@
 from pyxmolpp2 import Frame, TorsionAngleFactory
 from pyxmolpp2.pipe import TrajectoryProcessor
-from typing import List, Callable, Optional, Any
-import traceback
+from typing import List, Callable, Optional
 
 
 class ExtractDihedrals(TrajectoryProcessor):
     """
     A trajectory processor for extracting and writing dihedral angles to files.
-
     This processor extracts specified dihedral angles for each selected residue in every
     frame of a trajectory and writes the values to separate files (one per residue) using
     a user-provided writer class.
@@ -169,5 +167,3 @@ class ExtractDihedrals(TrajectoryProcessor):
         """
         for _, writer in self._residue_writers_pairs:
             writer.close()
-
-
