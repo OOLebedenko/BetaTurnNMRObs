@@ -140,7 +140,7 @@ class ExtractDihedrals(TrajectoryProcessor):
                 if angle is None:
                     values.append("NA")
                 else:
-                    values.append(str(angle.value().to_stgidard_range().degrees))
+                    values.append(str(angle.value().to_standard_range().degrees))
             writer.writerow(values)
 
     def after_last_iteration(self, exc_type, exc_value, traceback) -> None:
