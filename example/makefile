@@ -1,5 +1,10 @@
 include common.mk
 
+data/j_consts/*csv:  ${SCRIPT_DIR}/calc_j_constant.py data/dihedral_angles/*.csv
+	python3 "$<" \
+	    --path-to-dihedral-angles-dir="data/dihedral_angles"\
+	    --output-directory="data/j_consts"
+
 data/dihedral_angles/*.csv: ${SCRIPT_DIR}/extract_dihedral_angles.py
 	python3 "$<" \
 	    --path-to-trajectory-dir="${PATH_TO_TRAJECTORY}"\
