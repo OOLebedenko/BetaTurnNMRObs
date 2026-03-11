@@ -14,6 +14,7 @@ if __name__ == '__main__':
     parser.add_argument('--path-to-pdb-reference', required=True)
     parser.add_argument('--trajectory-start', default=1, type=int)
     parser.add_argument('--trajectory-length', required=True, type=int)
+    parser.add_argument('--dt-ns', required=True, type=float)
     parser.add_argument('--filetype', choices=["dat", "nc"], default="nc")
     parser.add_argument('--filepattern', default="run%05d")
     parser.add_argument('--trajectory-stride', type=int, default=1)
@@ -35,6 +36,7 @@ if __name__ == '__main__':
     traj_handler = ExtractDihedrals(angle_names=["phi", "psi"],
                                     writer=CsvWriter,
                                     filename_provider=filename_provider,
+                                    dt_ns=args.dt_ns,
                                     outdir=args.output_directory
                                     )
 

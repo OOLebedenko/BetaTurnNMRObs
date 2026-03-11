@@ -39,6 +39,7 @@ class ExtractDihedrals(TrajectoryProcessor):
                  angle_names: List[str],
                  writer,
                  filename_provider: Callable,
+                 dt_ns: float,
                  outdir: str = ".",
                  residue_selector: Optional[Callable] = None):
         """
@@ -67,6 +68,14 @@ class ExtractDihedrals(TrajectoryProcessor):
             >>> def name_provider(residue):
             ...     return f"residue_{residue.id.serial}.dat"
 
+
+        dt_ns : float
+            Time step in nanoseconds between trajectory frames. This value is used to:
+            - Calculate actual time points for each frame when writing output
+            - Provide time information to the writer for time-series data
+            - Ensure consistent time scaling across all output files
+            The time for frame i is calculated as i * dt_ns nanoseconds.
+
         outdir : str, optional
             Directory where output files will be created (default: ".")
 
@@ -82,6 +91,7 @@ class ExtractDihedrals(TrajectoryProcessor):
         self.residue_selector = residue_selector
         self.filename_provider = filename_provider
         self.outdir = outdir
+        self.dt_ns = dt_ns
         self._residue_writers_pairs = []  # Internal storage for (residue, writer) pairs
 
     def before_first_iteration(self, frame: Frame) -> None:
@@ -110,7 +120,7 @@ class ExtractDihedrals(TrajectoryProcessor):
         for residue in selected_residues:
             fname = self.filename_provider(residue=residue)
             angle_writer = self.writer(self.outdir, fname)
-            angle_writer.header(self.angle_names)
+            angle_writer.header(["time_ns", *self.angle_names])
             self._residue_writers_pairs.append((residue, angle_writer))
 
     def __call__(self, frame: Frame) -> None:
@@ -134,7 +144,7 @@ class ExtractDihedrals(TrajectoryProcessor):
         3. If the angle cannot be computed (e.g., missing atoms), writes None
         """
         for residue, writer in self._residue_writers_pairs:
-            values = []
+            values = [frame.index * self.dt_ns]
             for angle_name in self.angle_names:
                 angle = TorsionAngleFactory.get(residue=residue, angle_name=angle_name)
                 if angle is None:

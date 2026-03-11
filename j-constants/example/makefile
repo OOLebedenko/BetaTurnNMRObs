@@ -11,4 +11,5 @@ data/dihedral_angles/*.csv: ${SCRIPT_DIR}/extract_dihedral_angles.py
 	    --path-to-pdb-reference="${REFERENCE_PDB_PATH}" \
 	    --trajectory-length="${TRAJECTORY_LENGTH}" \
 	    --trajectory-stride="${TRAJECTORY_STRIDE}" \
+	    --dt-ns="${DT_NS}" \
 	    --output-directory="data/dihedral_angles"

@@ -29,5 +29,5 @@ if __name__ == '__main__':
             j_c_c = calc_j_c_c(phi_array=phi_array)
 
         os.makedirs(args.output_directory, exist_ok=True)
-        pd.DataFrame({"J-HN-HA": j_hn_ha, "J-C-C": j_c_c}).to_csv(
+        pd.DataFrame({"time_ns": df_dihedral["time_ns"], "J-HN-HA": j_hn_ha, "J-C-C": j_c_c}).to_csv(
             os.path.join(args.output_directory, os.path.basename(dihedral_csv)), index=False)
