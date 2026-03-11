@@ -31,13 +31,13 @@ def calc_j_hn_ha(phi_array: NDArray[np.float64]) -> NDArray[np.float64]:
     >>> phi = np.linspace(-180, 180, 100)
     >>> j_hn_ha = calc_j_hn_ha(phi)
     """
-    j_hn_ha = np.array()
+    j_hn_ha = []
     for phi in phi_array:
         phi_rad = math.radians(phi)
         theta_rad = phi_rad - math.radians(60)
         j = 7.97 * math.cos(theta_rad) ** 2 - 1.26 * math.cos(theta_rad) + 0.63
         j_hn_ha.append(j)
-    return j_hn_ha
+    return np.array(j_hn_ha, dtype=np.float64)
 
 
 
@@ -70,12 +70,12 @@ def calc_j_c_c(phi_array: NDArray[np.float64]) -> NDArray[np.float64]:
     >>> phi = np.linspace(-180, 180, 50)
     >>> j_c_c = calc_j_c_c(phi)
     """
-    j_c_c = np.array()
+    j_c_c = []
     for phi in phi_array:
         phi_rad = math.radians(phi)
         j = 1.61 * math.cos(phi_rad) ** 2 - 0.93 * math.cos(phi_rad) + 0.55
         j_c_c.append(j)
-    return j_c_c
+    return np.array(j_c_c, dtype=np.float64)
 
 
 def calc_j_hn_ha_gly(phi_array: NDArray[np.float64]) -> NDArray[np.float64]:
@@ -110,12 +110,12 @@ def calc_j_hn_ha_gly(phi_array: NDArray[np.float64]) -> NDArray[np.float64]:
     >>> phi = np.linspace(-180, 180, 200)
     >>> j_hn_ha = calc_j_hn_ha_gly(phi)
     """
-    j_hn_ha = np.array()
+    j_hn_ha = []
     for phi in phi_array:
         phi_rad = math.radians(phi)
         j = 8.09 * math.cos(phi_rad) ** 2 + 1.00 * math.cos(phi_rad) + 1.01
         j_hn_ha.append(j)
-    return j_hn_ha
+    return np.array(j_hn_ha, dtype=np.float64)
 
 
 def calc_j_c_c_gly(phi_array: NDArray[np.float64]) -> NDArray[np.float64]:
@@ -150,9 +150,9 @@ def calc_j_c_c_gly(phi_array: NDArray[np.float64]) -> NDArray[np.float64]:
     >>> phi = np.linspace(-180, 180, 100)
     >>> j_c_c = calc_j_c_c_gly(phi)
     """
-    j_c_c = np.array()
+    j_c_c = []
     for phi in phi_array:
         phi_rad = math.radians(phi)
         j = 1.73 * math.cos(phi_rad) ** 2 + 1.08 * math.cos(phi_rad) + 0.28
         j_c_c.append(j)
-    return j_c_c
+    return np.array(j_c_c, dtype=np.float64)
