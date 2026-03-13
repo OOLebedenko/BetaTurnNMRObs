@@ -19,10 +19,8 @@ class RunnerBetaTurn18(TrajectoryProcessor):
         os.makedirs(self.outdir, exist_ok=True)
 
     def __call__(self, frame: Frame) -> None:
-        frame.to_pdb("tmp.pdb")
+        frame.to_pdb(f"frame{frame.index:05d}.pdb")
         subprocess.call(
-            [sys.executable, self.path_to_betaturn18_py2, "-i", "tmp.pdb",
+            [sys.executable, self.path_to_betaturn18_py2, "-i", f"frame{frame.index:05d}.pdb",
              "-o", os.path.join(self.outdir, f"frame{frame.index:05d}.out")])
-
-    def after_last_iteration(self, exc_type, exc_value, traceback) -> None:
-        os.remove("tmp.pdb")
+        os.remove(f"frame{frame.index:05d}.pdb")
