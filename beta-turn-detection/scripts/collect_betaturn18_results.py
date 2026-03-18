@@ -25,5 +25,6 @@ if __name__ == '__main__':
             df_tmp = pd.read_csv(StringIO("\n".join(content.split("\n")[:2])), sep=r'\s+')
             df_results = pd.concat([df_results, df_tmp])
 
+    df_results.rename({"pdb": "time_ns"}, axis=1, inplace=True)
     for beta_turn_name, df_beta_turn in df_results.groupby("aa1234"):
         df_beta_turn.to_csv(os.path.join(args.output_directory, f"{beta_turn_name}.csv"), index=False)

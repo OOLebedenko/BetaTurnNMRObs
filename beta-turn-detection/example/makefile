@@ -16,5 +16,6 @@ data/betaturn18/*.out: ${SCRIPT_DIR}/run_betaturn18.py
 		--path-to-trajectory-dir="${PATH_TO_TRAJECTORY}" \
 		--path-to-pdb-reference="${REFERENCE_PDB_PATH}" \
 		--trajectory-length="${TRAJECTORY_LENGTH}" \
+		--dt-ns="${DT_NS}" \
 		--trajectory-stride="${TRAJECTORY_STRIDE}" \
 		--output-directory="data/betaturn18"

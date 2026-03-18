@@ -12,6 +12,7 @@ if __name__ == '__main__':
     parser.add_argument('--path-to-betaturn18-py2', required=True)
     parser.add_argument('--path-to-trajectory-dir', required=True)
     parser.add_argument('--path-to-pdb-reference', required=True)
+    parser.add_argument('--dt-ns', required=True, type=float)
     parser.add_argument('--trajectory-start', default=1, type=int)
     parser.add_argument('--trajectory-length', required=True, type=int)
     parser.add_argument('--filetype', choices=["dat", "nc"], default="nc")
@@ -34,6 +35,7 @@ if __name__ == '__main__':
 
     traj_handler = RunnerBetaTurn18(
         path_to_betaturn18_py2=args.path_to_betaturn18_py2,
+        dt_ns=args.dt_ns,
         outdir=args.output_directory
     )
 
