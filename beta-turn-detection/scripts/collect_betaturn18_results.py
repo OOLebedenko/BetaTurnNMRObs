@@ -17,14 +17,13 @@ if __name__ == '__main__':
     beta_turn_outs.sort()
 
     df_results = pd.DataFrame()
-    with open(os.path.join(args.output_directory, "results.txt"), 'w') as f:
-        for beta_turn_out in beta_turn_outs:
-            with open(beta_turn_out, 'r') as fin:
-                content = fin.read()
-                if "table" not in content:
-                    continue
-                df_tmp = pd.read_csv(StringIO("\n".join(content.split("\n")[:2])), sep=r'\s+')
-                df_results = pd.concat([df_results, df_tmp])
+    for beta_turn_out in beta_turn_outs:
+        with open(beta_turn_out, 'r') as fin:
+            content = fin.read()
+            if "table" not in content:
+                continue
+            df_tmp = pd.read_csv(StringIO("\n".join(content.split("\n")[:2])), sep=r'\s+')
+            df_results = pd.concat([df_results, df_tmp])
 
     for beta_turn_name, df_beta_turn in df_results.groupby("aa1234"):
         df_beta_turn.to_csv(os.path.join(args.output_directory, f"{beta_turn_name}.csv"), index=False)
