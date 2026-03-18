@@ -27,6 +27,10 @@ if __name__ == '__main__':
 
     # read trajectory
     trj_ref = PdbFile(args.path_to_pdb_reference).frames()[0]
+    for ind, mol in enumerate(trj_ref.molecules, 1):
+        if not mol.name:
+            mol.name = str(ind)
+
     traj = Trajectory(trj_ref)
     for ind in tqdm(range(args.trajectory_start, args.trajectory_length + 1), desc="traj_reading"):
         fname = "{pattern}.{filetype}".format(pattern=args.filepattern, filetype=args.filetype)
