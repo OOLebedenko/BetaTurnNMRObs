@@ -10,4 +10,4 @@ PATH_TO_BETATURN18_PY2 = "../BetaTurn18/BetaTurnTool18.py2"
 # specify trajectory setting
 TRAJECTORY_LENGTH=10
 TRAJECTORY_STRIDE=1
-DT_NS=0.1
+DT_NS=1
